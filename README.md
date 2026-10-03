@@ -1,10 +1,10 @@
 # ✨ Fabulo.ai
 
-Plataforma web full-stack orientada a la generación y narración interactiva de cuentos infantiles hiper-personalizados mediante Inteligencia Artificial. 
+Plataforma web full-stack orientada a la generación y narración interactiva de cuentos infantiles hiper-personalizados mediante Inteligencia Artificial.
 
 Este repositorio contiene el código fuente desarrollado para el **Trabajo de Fin de Máster (TFM)** del **Máster Universitario en Desarrollo de Aplicaciones Web** de la **Universidad Europea de Madrid**.
 
-**Autor:** Luis Enrique Quinto Munive  
+**Autor:** Luis Enrique Quinto Munive
 
 ---
 
@@ -45,35 +45,49 @@ Para ejecutar este proyecto en un entorno local, es necesario contar con:
 ## 🛠️ Instalación y Despliegue Local
 
 **1. Clonar el repositorio**
-bash
-git clone [https://github.com/luisquintom/fabulo-ai.git]
-cd fabulo-ai
-**2. Configurar variables de entorno**
-Crea un archivo llamado .env en la raíz del proyecto (al mismo nivel que docker-compose.yml) y añade las siguientes credenciales:
 
-Fragmento de código
+```bash
+git clone https://github.com/luisquintom/fabulo-ai.git
+cd fabulo-ai
+```
+
+**2. Configurar variables de entorno**
+
+Crea un archivo llamado `.env` en la raíz del proyecto (al mismo nivel que `docker-compose.yml`) y añade las siguientes credenciales:
+
+```env
 POSTGRES_DB=fabulo_db
 POSTGRES_USER=tu_usuario
 POSTGRES_PASSWORD=tu_password
 GEMINI_API_KEY=tu_clave_de_google_aqui
+```
+
 **3. Construir y levantar la infraestructura**
+
 Ejecuta el siguiente comando para descargar las imágenes, compilar el backend y levantar la base de datos de forma orquestada:
 
-Bash
+```bash
 docker compose up -d --build
+```
+
 **4. Aplicar migraciones**
+
 Una vez que los contenedores estén activos, inicializa la estructura de la base de datos PostgreSQL:
 
-Bash
+```bash
 docker compose exec backend python manage.py migrate
+```
+
 **5. Acceder a la aplicación**
 
-Panel Web (Angular): http://localhost:4200
+* **Panel Web (Angular):** http://localhost:4200
+* **API y Panel de Admin (Django):** http://localhost:8000/admin
 
-API y Panel de Admin (Django): http://localhost:8000/admin
+---
 
-📂 Estructura del Proyecto
-Plaintext
+## 📂 Estructura del Proyecto
+
+```plaintext
 fabulo-ai/
 ├── backend/                  # API REST en Django
 │   ├── core/                 # Configuraciones principales de Django
@@ -87,6 +101,10 @@ fabulo-ai/
 │   └── Dockerfile            # Configuración del contenedor Frontend
 ├── docker-compose.yml        # Orquestación de servicios (PostgreSQL, Backend, Frontend)
 └── README.md                 # Documentación del proyecto
+```
 
-**🔒 Privacidad y Seguridad (GDPR)**
+---
+
+## 🔒 Privacidad y Seguridad (GDPR)
+
 *Este proyecto aplica los principios de Privacidad por Diseño. Todo el procesamiento de los perfiles de los menores se realiza de manera anonimizada mediante el uso de nombres de pila o seudónimos, y los audios generados a través de Edge TTS no requieren el almacenamiento persistente ni la cesión de datos biométricos reales de los usuarios.*
