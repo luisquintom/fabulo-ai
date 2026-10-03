@@ -1,0 +1,12 @@
+# Entornos y claves
+.env
+
+# Python / Django
+__pycache__/
+*.pyc
+backend/media/
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
