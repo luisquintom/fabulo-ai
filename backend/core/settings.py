@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'cuentos',
 ]
 
@@ -91,7 +92,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',  # El nombre del servicio en docker-compose.yml
+        'HOST': 'db',  
         'PORT': '5432',
     }
 }
@@ -143,6 +144,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
 
-# Configuración para archivos subidos/generados por la app (MP3, imágenes, etc.)
+# MP3, imágenes, etc.
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# Configuración global de Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}

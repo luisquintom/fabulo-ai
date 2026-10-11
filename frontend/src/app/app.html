@@ -1,48 +1,102 @@
-<div style="padding: 20px; font-family: Arial, sans-serif;">
-  <h1>🌟 Fabulo.ai - Panel de Control</h1>
-  <h2>Perfiles de Niños Registrados:</h2>
+<div style="padding: 20px; font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
 
-  @for (nino of listaNinos(); track nino.id) {
-    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
-      <h3 style="margin: 0; color: #2c3e50;">{{ nino.nombre }} ({{ nino.edad }} años)</h3>
-      <p><strong>Intereses:</strong> {{ nino.intereses }}</p>
-      <p><strong>Valores:</strong> {{ nino.valores }}</p>
+  <!-- PANTALLA DE ACCESO -->
+  @if (!isLoggedIn()) {
+    <div style="background: #f8f9fa; padding: 30px; border-radius: 10px; border: 1px solid #ddd; text-align: center;">
+      <h1 style="color: #2c3e50;">🌟 Fabulo.ai</h1>
       
-      <!-- BOTÓN DISPARADOR -->
-      <button 
-        (click)="pedirCuento(nino.id)" 
-        [disabled]="cargando()"
-        style="padding: 10px 15px; background-color: #8e44ad; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-        ✨ Generar Cuento con IA
+      @if (!mostrarRegistro()) {
+        <h2>Iniciar Sesión</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto;">
+          <input type="text" [(ngModel)]="username" placeholder="Nombre de usuario" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <input type="password" [(ngModel)]="password" placeholder="Contraseña" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <button (click)="iniciarSesion()" style="padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer;">Entrar</button>
+        </div>
+        <p style="margin-top: 20px;">¿No tienes cuenta? <a href="javascript:void(0)" (click)="mostrarRegistro.set(true)" style="color: #2980b9;">Regístrate aquí</a></p>
+      
+      } @else {
+        <h2>Crear Cuenta Nueva</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto;">
+          <input type="text" [(ngModel)]="username" placeholder="Nombre de usuario" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <input type="email" [(ngModel)]="email" placeholder="Correo electrónico" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <input type="password" [(ngModel)]="password" placeholder="Contraseña" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <button (click)="registrarse()" style="padding: 12px; background: #8e44ad; color: white; border: none; border-radius: 5px; cursor: pointer;">Registrarse</button>
+        </div>
+        <p style="margin-top: 20px;">¿Ya tienes cuenta? <a href="javascript:void(0)" (click)="mostrarRegistro.set(false)" style="color: #2980b9;">Inicia sesión</a></p>
+      }
+    </div>
+  }
+
+  <!-- PANEL DE CONTROL -->
+  @if (isLoggedIn()) {
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>🌟 Hola, <span style="color: #8e44ad;">{{ usuarioActual() }}</span> - Panel de Control</h1>
+      <button (click)="cerrarSesion()" style="padding: 8px 15px; background: #c0392b; color: white; border: none; border-radius: 5px; cursor: pointer;">Cerrar Sesión</button>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; margin-bottom: 20px;">
+      <h2 style="margin: 0;">Perfiles de Niños Registrados:</h2>
+      <button (click)="mostrarFormularioNino.set(!mostrarFormularioNino())" style="padding: 10px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        {{ mostrarFormularioNino() ? '❌ Cancelar' : '➕ Añadir Niño' }}
       </button>
     </div>
-  } @empty {
-    <p>Aún no hay niños registrados en la base de datos.</p>
-  }
 
-  <!-- ZONA DE CARGA -->
-  @if (cargando()) {
-    <div style="margin-top: 20px; padding: 15px; background-color: #f1c40f; border-radius: 8px;">
-      ⏳ <strong>La IA está escribiendo la historia y grabando la voz... Esto tomará entre 5 y 10 segundos.</strong>
-    </div>
-  }
-
-  <!-- ZONA DE RESULTADO FINAL -->
-  @if (cuentoGenerado()) {
-    <div style="margin-top: 20px; padding: 20px; background-color: #e8f8f5; border: 2px solid #1abc9c; border-radius: 8px;">
-      <h2 style="color: #16a085; margin-top: 0;">{{ cuentoGenerado().titulo }}</h2>
-      
-      <!-- NUEVO: REPRODUCTOR DE AUDIO EDGE TTS -->
-      @if (cuentoGenerado().audio_url) {
-        <div style="margin-bottom: 20px; padding: 15px; background: #ffffff; border-radius: 8px; border: 1px solid #bdc3c7;">
-          <h4 style="margin-top: 0; margin-bottom: 10px; color: #34495e;">🎧 Escuchar la narración:</h4>
-          <audio controls [src]="cuentoGenerado().audio_url" style="width: 100%; outline: none;"></audio>
+    <!-- FORMULARIO DE CREACIÓN DE NIÑO -->
+    @if (mostrarFormularioNino()) {
+      <div style="background: #ecf0f1; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bdc3c7;">
+        <h3 style="margin-top: 0;">Registrar nuevo perfil</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px;">
+          <input type="text" [(ngModel)]="nuevoNino.nombre" placeholder="Nombre (Ej: Sofía)" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <input type="number" [(ngModel)]="nuevoNino.edad" placeholder="Edad (Ej: 6)" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <textarea [(ngModel)]="nuevoNino.intereses" placeholder="Intereses (Ej: dinosaurios, el espacio, princesas)" rows="2" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+          <textarea [(ngModel)]="nuevoNino.valores" placeholder="Valores (Ej: la amistad, el respeto, compartir)" rows="2" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+          
+          <button (click)="guardarNino()" style="padding: 12px; background: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            Guardar Perfil
+          </button>
         </div>
-      }
+      </div>
+    }
 
-      <!-- white-space: pre-wrap asegura que Angular respete los saltos de párrafo de Gemini -->
-      <p style="white-space: pre-wrap; line-height: 1.6; font-size: 16px;">{{ cuentoGenerado().historia_texto }}</p>
-    </div>
+    <!-- LISTA DE NIÑOS -->
+    @for (nino of listaNinos(); track nino.id) {
+      <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+        <h3 style="margin: 0; color: #2c3e50;">{{ nino.nombre }} ({{ nino.edad }} años)</h3>
+        <p><strong>Intereses:</strong> {{ nino.intereses }}</p>
+        <p><strong>Valores:</strong> {{ nino.valores }}</p>
+        
+        <button 
+          (click)="pedirCuento(nino.id)" 
+          [disabled]="cargando()"
+          style="padding: 10px 15px; background-color: #8e44ad; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+          ✨ Generar Cuento con IA
+        </button>
+      </div>
+    } @empty {
+      <p style="color: #7f8c8d; font-style: italic;">Aún no tienes niños registrados. ¡Añade uno para empezar!</p>
+    }
+
+    <!-- ZONA DE CARGA -->
+    @if (cargando()) {
+      <div style="margin-top: 20px; padding: 15px; background-color: #f1c40f; border-radius: 8px;">
+        ⏳ <strong>La IA está escribiendo la historia y grabando la voz... Esto tomará entre 5 y 10 segundos.</strong>
+      </div>
+    }
+
+    <!-- ZONA DE RESULTADO -->
+    @if (cuentoGenerado()) {
+      <div style="margin-top: 20px; padding: 20px; background-color: #e8f8f5; border: 2px solid #1abc9c; border-radius: 8px;">
+        <h2 style="color: #16a085; margin-top: 0;">{{ cuentoGenerado().titulo }}</h2>
+        
+        @if (cuentoGenerado().ruta_audio_final) {
+          <div style="margin-bottom: 20px; padding: 15px; background: #ffffff; border-radius: 8px; border: 1px solid #bdc3c7;">
+            <h4 style="margin-top: 0; margin-bottom: 10px; color: #34495e;">🎧 Escuchar la narración:</h4>
+            <audio controls [src]="cuentoGenerado().ruta_audio_final" style="width: 100%; outline: none;"></audio>
+          </div>
+        }
+
+        <p style="white-space: pre-wrap; line-height: 1.6; font-size: 16px;">{{ cuentoGenerado().historia_texto }}</p>
+      </div>
+    }
   }
-  
 </div>

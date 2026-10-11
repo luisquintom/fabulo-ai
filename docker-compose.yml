@@ -1,5 +1,5 @@
 services:
-  # 1. Base de Datos
+  # Base de Datos
   db:
     image: postgres:15-alpine
     container_name: fabulo_db
@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # 2. Backend (Django)
+  # Backend (Django)
   backend:
     build: ./backend
     container_name: fabulo_backend
@@ -27,12 +27,11 @@ services:
     env_file:
       - .env
 
-  # 3. Frontend (Angular)
+  # Frontend (Angular)
   frontend:
     build: ./frontend
     container_name: fabulo_frontend
     volumes:
-      # Sincroniza tu carpeta local con el contenedor para ver cambios en vivo
       - ./frontend:/app
     ports:
       - "4200:4200"

@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# 1. Entidad: Perfil_Niño
 class PerfilNino(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ninos')
     nombre = models.CharField(max_length=100)
@@ -16,7 +15,6 @@ class PerfilNino(models.Model):
     def __str__(self):
         return f"{self.nombre} (Hijo/a de {self.usuario.username})"
 
-# 2. Entidad: Modelo_Voz
 class ModeloVoz(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='voces')
     nombre_voz = models.CharField(max_length=100, help_text="Ej: Voz de Mamá, Voz del Abuelo")
@@ -30,7 +28,6 @@ class ModeloVoz(models.Model):
     def __str__(self):
         return f"{self.nombre_voz} ({self.usuario.username})"
 
-# 3. Entidad: Cuento
 class Cuento(models.Model):
     nino = models.ForeignKey(PerfilNino, on_delete=models.CASCADE, related_name='cuentos')
     voz = models.ForeignKey(ModeloVoz, on_delete=models.SET_NULL, null=True, blank=True)

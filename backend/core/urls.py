@@ -5,11 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Todas las rutas de nuestra API empezarán con /api/
     path('api/', include('cuentos.urls')), 
 ]
 
 
-# Exponemos la carpeta media solo durante la fase de desarrollo
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

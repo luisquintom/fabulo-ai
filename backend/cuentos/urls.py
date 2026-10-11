@@ -1,13 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PerfilNinoViewSet, ModeloVozViewSet, CuentoViewSet
+from .views import PerfilNinoViewSet, ModeloVozViewSet, CuentoViewSet, RegistroView, LoginView
 
-# El Router crea las URLs automáticamente para nuestros ViewSets
 router = DefaultRouter()
-router.register(r'ninos', PerfilNinoViewSet)
-router.register(r'voces', ModeloVozViewSet)
-router.register(r'cuentos', CuentoViewSet)
+router.register(r'ninos', PerfilNinoViewSet, basename='nino')
+router.register(r'voces', ModeloVozViewSet, basename='voz')
+router.register(r'cuentos', CuentoViewSet, basename='cuento')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('registro/', RegistroView.as_view(), name='registro'),
+    path('login/', LoginView.as_view(), name='login'),
 ]
