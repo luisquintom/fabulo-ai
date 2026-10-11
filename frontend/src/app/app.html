@@ -8,7 +8,6 @@
       <p><strong>Intereses:</strong> {{ nino.intereses }}</p>
       <p><strong>Valores:</strong> {{ nino.valores }}</p>
       
-      <!-- BOTÓN DISPARADOR -->
       <button 
         (click)="pedirCuento(nino.id)" 
         [disabled]="cargando()"
@@ -20,19 +19,17 @@
     <p>Aún no hay niños registrados en la base de datos.</p>
   }
 
-  <!-- ZONA DE CARGA -->
   @if (cargando()) {
     <div style="margin-top: 20px; padding: 15px; background-color: #f1c40f; border-radius: 8px;">
       ⏳ <strong>La IA está escribiendo la historia y grabando la voz... Esto tomará entre 5 y 10 segundos.</strong>
     </div>
   }
 
-  <!-- ZONA DE RESULTADO FINAL -->
   @if (cuentoGenerado()) {
     <div style="margin-top: 20px; padding: 20px; background-color: #e8f8f5; border: 2px solid #1abc9c; border-radius: 8px;">
       <h2 style="color: #16a085; margin-top: 0;">{{ cuentoGenerado().titulo }}</h2>
       
-      <!-- NUEVO: REPRODUCTOR DE AUDIO EDGE TTS -->
+
       @if (cuentoGenerado().audio_url) {
         <div style="margin-bottom: 20px; padding: 15px; background: #ffffff; border-radius: 8px; border: 1px solid #bdc3c7;">
           <h4 style="margin-top: 0; margin-bottom: 10px; color: #34495e;">🎧 Escuchar la narración:</h4>
@@ -40,7 +37,6 @@
         </div>
       }
 
-      <!-- white-space: pre-wrap asegura que Angular respete los saltos de párrafo de Gemini -->
       <p style="white-space: pre-wrap; line-height: 1.6; font-size: 16px;">{{ cuentoGenerado().historia_texto }}</p>
     </div>
   }

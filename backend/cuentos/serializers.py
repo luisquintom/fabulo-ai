@@ -4,7 +4,7 @@ from .models import PerfilNino, ModeloVoz, Cuento
 class PerfilNinoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PerfilNino
-        fields = '__all__' # Queremos que traduzca todos los campos del modelo
+        fields = '__all__' 
 
 class ModeloVozSerializer(serializers.ModelSerializer):
     class Meta:

@@ -11,8 +11,8 @@ import { NinosService } from './ninos.service';
 })
 export class App implements OnInit {
   listaNinos = signal<any[]>([]); 
-  cuentoGenerado = signal<any>(null); // Guardará el cuento cuando OpenAI responda
-  cargando = signal<boolean>(false);  // Bloqueará botones mientras carga
+  cuentoGenerado = signal<any>(null); 
+  cargando = signal<boolean>(false);  
   
   private ninosService = inject(NinosService); 
 
@@ -20,10 +20,9 @@ export class App implements OnInit {
     this.ninosService.getNinos().subscribe(datos => this.listaNinos.set(datos));
   }
 
-  // Función que se activa al hacer clic en el botón
   pedirCuento(ninoId: number) {
     this.cargando.set(true);
-    this.cuentoGenerado.set(null); // Limpiamos la pantalla por si había un cuento anterior
+    this.cuentoGenerado.set(null); 
     
     this.ninosService.generarCuentoIA(ninoId).subscribe({
       next: (cuento) => {

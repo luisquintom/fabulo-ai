@@ -12,7 +12,6 @@ export class NinosService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  // NUEVO: Pide al backend que ejecute OpenAI
   generarCuentoIA(ninoId: number) {
     return this.http.post<any>(`${this.apiUrl}${ninoId}/generar_cuento/`, {});
   }
