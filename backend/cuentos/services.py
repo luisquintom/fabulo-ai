@@ -37,7 +37,7 @@ def generar_cuento_ai(nombre, edad, intereses, valores):
         
         return {
             "texto": texto_cuento,
-            "audio_url": f"http://localhost:8000/media/{nombre_archivo}", # URL provisional para Angular
+            "audio_url": f"http://localhost:8000/media/{nombre_archivo}", 
             "error": None
         }
         

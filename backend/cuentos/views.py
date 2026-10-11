@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import PerfilNino, ModeloVoz, Cuento
 from .serializers import PerfilNinoSerializer, ModeloVozSerializer, CuentoSerializer
-from .services import generar_cuento_ai # <--- Importamos nuestra función de IA
+from .services import generar_cuento_ai 
 
 class PerfilNinoViewSet(viewsets.ModelViewSet):
     queryset = PerfilNino.objects.all()
