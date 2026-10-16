@@ -10,7 +10,7 @@ from .models import PerfilNino, ModeloVoz, Cuento
 from .serializers import PerfilNinoSerializer, ModeloVozSerializer, CuentoSerializer, UserSerializer
 from .services import generar_cuento_ai
 
-#  ENDPOINTS DE LA APLICACIÓN 
+#  endpoint aplicac.
 
 class PerfilNinoViewSet(viewsets.ModelViewSet):
     serializer_class = PerfilNinoSerializer
@@ -60,7 +60,7 @@ class CuentoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Cuento.objects.filter(nino__usuario=self.request.user)
 
-# --- ENDPOINTS DE AUTENTICACIÓN ---
+# --- autenticacion ---
 
 class RegistroView(APIView):
     def post(self, request):

@@ -1,15 +1,9 @@
 import os
-import asyncio
-import edge_tts
-import google.generativeai as genai
 import time
+import google.generativeai as genai
+from gtts import gTTS
 
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
-
-async def crear_audio_edge(texto, ruta_salida):
-    voz = "es-ES-AlvaroNeural" 
-    comunicar = edge_tts.Communicate(texto, voz)
-    await comunicar.save(ruta_salida)
 
 def generar_cuento_ai(nombre, edad, intereses, valores):
     prompt = (
@@ -21,17 +15,19 @@ def generar_cuento_ai(nombre, edad, intereses, valores):
     )
     
     try:
-        # Google Gemini
+        
         modelo = genai.GenerativeModel('gemini-3.5-flash-lite')
         respuesta_ia = modelo.generate_content(prompt)
         texto_cuento = respuesta_ia.text
-        
+ 
+       
         os.makedirs("media", exist_ok=True) 
         nombre_archivo = f"cuento_{nombre.lower()}_{int(time.time())}.mp3"
         ruta_absoluta = os.path.join("media", nombre_archivo)
         
         
-        asyncio.run(crear_audio_edge(texto_cuento, ruta_absoluta))
+        tts = gTTS(text=texto_cuento, lang='es', tld='es')
+        tts.save(ruta_absoluta)
         
         return {
             "texto": texto_cuento,
