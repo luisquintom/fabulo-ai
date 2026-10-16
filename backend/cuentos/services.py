@@ -23,7 +23,7 @@ def generar_cuento_ai(nombre, edad, intereses, valores):
     
     try:
         # Google Gemini
-        modelo = genai.GenerativeModel('gemini-3.8-flash')
+        modelo = genai.GenerativeModel('gemini-3.5-flash-lite')
         respuesta_ia = modelo.generate_content(prompt)
         texto_cuento = respuesta_ia.text
  
