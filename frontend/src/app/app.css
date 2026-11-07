@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+ES:wght@100..400&display=swap');
+
+.texto-escolar {
+    font-family: 'Playwrite ES', cursive, sans-serif;
+    font-size: 28px; 
+    line-height: 1.6;
+    color: #2c3e50;
+    white-space: pre-wrap; 
+}
+
+.titulo-escolar {
+    font-family: 'Playwrite ES', cursive, sans-serif;
+    font-size: 46px; 
+    font-weight: 700;
+    color: #16a085; 
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
+}
+
+/* PANTALLA DE ACCESO */
+.auth-pantalla-completa {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(43, 38, 92, 0.85) 0%, rgba(76, 59, 130, 0.95) 100%), 
+    url('/fondo_fab.svg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+    z-index: 1000;
+}
+
+.auth-tarjeta {
+    background: #ffffff;
+    width: 100%;
+    max-width: 360px;
+    border-radius: 30px; 
+    padding: 40px 30px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative; 
+    z-index: 1;
+}
+
+.auth-titulo {
+    font-family: 'Playwrite ES', cursive, sans-serif;
+    font-size: 62px; 
+    margin: 0;
+    line-height: 1.2;
+    padding-bottom: 5px; 
+
+    background: linear-gradient(to right, #6c5ce7, #a29bfe, #00cec9, #6c5ce7);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    filter: drop-shadow(0px 8px 12px rgba(108, 92, 231, 0.35));
+
+    animation: colores-magicos 4s linear infinite;
+}
+
+@keyframes colores-magicos {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.auth-subtitulo {
+    color: #a4b0be;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    border: 2px solid #f1f2f6;
+    background-color: #fcfcfd;
+    border-radius: 18px;
+    font-size: 15px;
+    font-weight: 500;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    outline: none;
+    color: #2f3542;
+}
+
+.auth-input:focus {
+    border-color: #6c5ce7;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
+}
+
+.btn-magico {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 18px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.btn-magico:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}
+
+.btn-magico:active {
+    transform: translateY(0);
+}
+
+.btn-entrar {
+    background: linear-gradient(135deg, #6c5ce7, #8e44ad);
+}
+
+.btn-registro {
+    background: linear-gradient(135deg, #00b894, #00cec9);
+}
+
+.auth-link {
+    display: block;
+    margin-top: 25px;
+    color: #747d8c;
+    font-size: 14px;
+}
+
+.auth-link a {
+    color: #6c5ce7;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.auth-link a:hover {
+    color: #8e44ad;
+}
+
+.figura-monstruo {
+    position: absolute;
+    top: -60px;         
+    right: -100px;     
+    width: 180px;       
+    z-index: -1;        
+    transform: rotate(15deg);
+    animation: flotar-monstruo 4s ease-in-out infinite;
+    pointer-events: none; 
+}
+
+.figura-hada {
+    position: absolute; 
+    bottom: -90px;      
+    left: -180px;        
+    width: 300px;      
+    z-index: -1;        
+    transform: rotate(15deg);
+    animation: flotar-hada 3.5s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes flotar-monstruo {
+    0% { transform: translateY(0) rotate(-15deg); }
+    50% { transform: translateY(-12px) rotate(-10deg); }
+    100% { transform: translateY(0) rotate(-15deg); }
+}
+
+@keyframes flotar-hada {
+    0% { transform: translateY(0) rotate(15deg); }
+    50% { transform: translateY(-15px) rotate(20deg); }
+    100% { transform: translateY(0) rotate(15deg); }
+}
+
+@media (max-width: 500px) {
+    .figura-monstruo { left: -40px; width: 100px; }
+    .figura-hada { right: -30px; width: 90px; }
+}
+
+
+::ng-deep body {
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+.dashboard-layout {
+   
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    min-height: 100vh;
+    box-sizing: border-box; 
+    padding: 50px 20px;
+    
+    background-image: url('/fondo_fab.svg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    
+    color: #2d3436; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-contenedor {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 35px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 3px dashed #a29bfe; 
+    padding-bottom: 25px;
+}
+
+.dash-titulo {
+    font-family: 'Playwrite ES', 'Caveat', cursive;
+    font-size: 38px;
+    margin: 0;
+    color: #6c5ce7; 
+}
+
+.dash-titulo span {
+    color: #00b894; 
+}
+
+
+.btn-cerrar {
+    background-color: #ff7675; 
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-cerrar:hover {
+    background-color: #e84393;
+}
+
+.btn-cerrar:active {
+    transform: scale(0.96);
+}
+
+.btn-guardar-panel {
+    background-color: #6c5ce7; 
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s;
+    width: 100%;
+}
+
+.btn-guardar-panel:hover {
+    background-color: #5b43d6;
+}
+
+.btn-guardar-panel:active {
+    transform: scale(0.98);
+}
+
+.btn-accion {
+    background-color: #00b894;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s;
+    box-shadow: 0 4px 6px rgba(0, 184, 148, 0.1);
+}
+
+.btn-accion:hover {
+    background-color: #009432;
+}
+
+.btn-accion:active {
+    transform: scale(0.96);
+}
+
+.tarjeta-nino {
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 25px 30px;
+    margin-bottom: 20px;
+    color: #2d3436;
+    border: 3px solid #f1f2f6; 
+    border-left: 10px solid #a29bfe; 
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.tarjeta-nino h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 35px;
+    color: #6c5ce7;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.etiqueta {
+    background: #fff4e6; 
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #e15f41;
+    font-size: 13px;
+}
+
+.estado-vacio {
+    background: rgba(255, 255, 255, 0.7);
+    border: 3px dashed #a29bfe;
+    border-radius: 25px;
+    padding: 50px 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.icono-vacio {
+    font-size: 65px;
+    margin-bottom: 15px;
+    animation: flotar-hada 3s infinite alternate;
+}

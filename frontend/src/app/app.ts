@@ -37,8 +37,17 @@ export class App implements OnInit {
     }
   }
 
-  // --- MET AUTENTICACIÓN ---
+  // AUTENTICACION
   iniciarSesion() {
+    if (!this.username || this.username.trim() === '') {
+      alert('🪄 Por favor, ingresa tu nombre de explorador.');
+      return;
+    }
+    if (!this.password || this.password.trim() === '') {
+      alert('🪄 Por favor, ingresa tu contraseña secreta.');
+      return;
+    }
+
     const credenciales = { username: this.username, password: this.password };
     this.ninosService.login(credenciales).subscribe({
       next: (res) => {
@@ -48,11 +57,33 @@ export class App implements OnInit {
         this.isLoggedIn.set(true);
         this.cargarNinos();
       },
-      error: (err) => alert("Usuario o contraseña incorrectos")
+      error: (err) => alert("Usuario o contraseña incorrectos. Verifica tus datos.")
     });
   }
 
   registrarse() {
+    if (!this.username || this.username.trim() === '') {
+      alert('🪄 Debes elegir un nombre de usuario para registrarte.');
+      return;
+    }
+    if (!this.email || this.email.trim() === '') {
+      alert('🪄 El correo electrónico es obligatorio.');
+      return;
+    }
+
+    if (!this.email.includes('@')) {
+      alert('🪄 Por favor, ingresa un correo electrónico válido.');
+      return;
+    }
+    if (!this.password || this.password.trim() === '') {
+      alert('🪄 Debes crear una contraseña secreta.');
+      return;
+    }
+    if (this.password.length < 6) {
+      alert('🪄 Por seguridad, la contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
+
     const datos = { username: this.username, password: this.password, email: this.email };
     this.ninosService.registro(datos).subscribe({
       next: (res) => {
@@ -60,7 +91,7 @@ export class App implements OnInit {
         this.isLoggedIn.set(true);
         this.cargarNinos();
       },
-      error: (err) => alert("Error al registrarse. El usuario podría ya existir.")
+      error: (err) => alert("Error al registrarse. Es posible que este usuario o correo ya exista.")
     });
   }
 
@@ -75,7 +106,7 @@ export class App implements OnInit {
     this.password = '';
   }
 
-  // --- MET DEL PANEL ---
+
   cargarNinos() {
     this.ninosService.getNinos().subscribe({
       next: (datos) => this.listaNinos.set(datos),
@@ -86,8 +117,21 @@ export class App implements OnInit {
   }
 
   guardarNino() {
-    if (!this.nuevoNino.nombre || !this.nuevoNino.edad) {
-      alert("Por favor, completa al menos el nombre y la edad.");
+
+    if (!this.nuevoNino.nombre || this.nuevoNino.nombre.trim() === '') {
+      alert('🪄 ¡Ups! Olvidaste escribir el nombre del explorador.');
+      return; 
+    }
+    if (!this.nuevoNino.edad || this.nuevoNino.edad <= 0 || this.nuevoNino.edad > 15) {
+      alert('🪄 Por favor, ingresa una edad válida (ej. entre 2 y 12 años).');
+      return;
+    }
+    if (!this.nuevoNino.intereses || this.nuevoNino.intereses.trim() === '') {
+      alert('🪄 ¿Qué le gusta al explorador? Escribe algunos intereses para el cuento.');
+      return;
+    }
+    if (!this.nuevoNino.valores || this.nuevoNino.valores.trim() === '') {
+      alert('🪄 Escribe al menos un valor (ej. amistad, respeto) para la historia.');
       return;
     }
 
@@ -113,7 +157,7 @@ export class App implements OnInit {
       error: (err) => {
         console.error(err);
         this.cargando.set(false);
-        alert("Error al generar el cuento.");
+        alert("Error al generar el cuento. Por favor, intenta de nuevo.");
       }
     });
   }

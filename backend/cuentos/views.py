@@ -10,7 +10,7 @@ from .models import PerfilNino, ModeloVoz, Cuento
 from .serializers import PerfilNinoSerializer, ModeloVozSerializer, CuentoSerializer, UserSerializer
 from .services import generar_cuento_ai
 
-#  endpoint aplicac.
+#  endpoint aplic
 
 class PerfilNinoViewSet(viewsets.ModelViewSet):
     serializer_class = PerfilNinoSerializer
@@ -40,6 +40,7 @@ class PerfilNinoViewSet(viewsets.ModelViewSet):
 
         datos_respuesta = CuentoSerializer(nuevo_cuento).data
         datos_respuesta['audio_url'] = resultado_ia["audio_url"]
+        datos_respuesta['imagen_url'] = resultado_ia["imagen_url"]
 
         return Response(datos_respuesta, status=status.HTTP_201_CREATED)
 
@@ -60,7 +61,7 @@ class CuentoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Cuento.objects.filter(nino__usuario=self.request.user)
 
-# --- autenticacion ---
+# autenticaion 
 
 class RegistroView(APIView):
     def post(self, request):
