@@ -45,7 +45,7 @@ def tarea_generar_imagen(nombre, intereses):
             if 'image' in response.info().get_content_type():
                 with open(ruta_imagen_absoluta, 'wb') as f:
                     f.write(response.read())
-                url_final_imagen = f"http://localhost:8000/media/{nombre_imagen}"
+                url_final_imagen = f"https://fabulo-backend.onrender.com/media/{nombre_imagen}"
                 print(f"⏱️ IMAGEN: Descarga completada en {time.time() - t_inicio:.2f} segundos")
     except Exception as e:
         print(f"⏱️ IMAGEN: Falló o abortó por Timeout. ({e})")
@@ -86,7 +86,7 @@ def tarea_texto_y_audio(nombre, edad, intereses, valores):
     t_fin_audio = time.time()
     print(f"⏱️ AUDIO (Edge TTS): Completado en {t_fin_audio - t_inicio_audio:.2f} segundos")
     
-    return texto_cuento, f"http://localhost:8000/media/{nombre_audio}"
+    return texto_cuento, f"https://fabulo-backend.onrender.com/media/{nombre_audio}"
 
 
 # ORQUESTADOR PRINCIPAL
