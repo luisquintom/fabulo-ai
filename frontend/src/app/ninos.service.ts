@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class NinosService {
   private http = inject(HttpClient); 
-  private apiUrl = 'http://localhost:8000/api/'; 
+  private apiUrl = 'https://fabulo-backend.onrender.com/api'; 
 
   login(credenciales: any) {
     return this.http.post<any>(`${this.apiUrl}login/`, credenciales);
